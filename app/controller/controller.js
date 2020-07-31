@@ -70,7 +70,6 @@ exports.submitAnswerApi = async  (req, res) => {
         
       
      scoredetails= await scoreModel.findOneAndUpdate({email:email,score: score})
-     console.log(scoredetails)
         questionData = await questionModel.findOne({quesno:++quesno})
         if(quesno==6)
         {
@@ -80,6 +79,11 @@ exports.submitAnswerApi = async  (req, res) => {
         
     }
     else{
+        questionData = await questionModel.findOne({quesno:++quesno})
+        if(quesno==6)
+        {
+            res.send({Score:score})
+        }
         res.send({Answer_of_previous_question:false,questionNo:questionData.quesno,question:questionData.question,options:questionData.options})
     }
 
